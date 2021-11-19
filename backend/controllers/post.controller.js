@@ -44,3 +44,50 @@ exports.findOne = (req, res) => {
     });
   });
 };
+
+exports.add = (req, res) => {
+
+  return Post.create({
+    title: req.body.title,
+    content: req.body.content
+  }).then(function (post) {
+    if (post) {
+      let toSend = {
+        success: true,
+        data: post
+      }
+      res.send(toSend);
+    } else {
+      response.status(400).send('Error in insert new record');
+    }
+  });
+
+}
+
+exports.edit = (req, res) => {
+
+  const id = req.params.id;
+
+  Post.findByPk(id).then(data => {
+    var updated = data.update({
+      title: req.body.title,
+      content: req.body.content
+    });
+    let toSend = {
+      success: true
+    }
+    res.send(toSend);
+  }).catch(err => {
+    res.status(500).send({
+      message: "Error retrieving Post with id=" + id
+    });
+  });
+
+}
+
+exports.delete = (req, res) => {
+  let toSend = {
+    success: true
+  }
+  res.send(toSend);
+}

@@ -1,13 +1,13 @@
 module.exports = app => {
-  const posts = require("../controllers/post.controller");
+  const post = require("../controllers/post.controller");
 
   var router = require("express").Router();
 
-  router.get("/", posts.findAll);
-  router.get("/:id", posts.findOne);
-  router.post("/", posts.add);
-  router.put("/:id", posts.edit);
-  router.delete("/:id", posts.delete);
+  router.get("/", post.findAll);
+  router.get("/:id", post.findOne);
+  router.post("/", post.add);
+  router.put("/:id", post.edit);
+  router.delete("/:id", post.delete);
 
 
   app.use('/api/notes', router);

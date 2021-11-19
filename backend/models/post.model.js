@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-  const Post = sequelize.define("post", {
+  const Post = sequelize.define("posts", {
     id: {
       allowNull: false,
       autoIncrement: true,
