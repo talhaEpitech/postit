@@ -6,11 +6,11 @@ module.exports = (sequelize, Sequelize) => {
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    title: {
+    label: {
       type: Sequelize.STRING
     },
-    content: {
-      type: Sequelize.STRING
+    done: {
+      type: Sequelize.BOOLEAN
     },
     dateOfPost: {
       type: Sequelize.DATE

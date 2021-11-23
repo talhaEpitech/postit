@@ -3,8 +3,8 @@ const Post = db.post;
 const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const label = req.query.label;
+  var condition = label ? { label: { [Op.like]: `%${label}%` } } : null;
 
   Post.findAll({
     // limit: 20,
@@ -48,8 +48,8 @@ exports.findOne = (req, res) => {
 exports.add = (req, res) => {
 
   return Post.create({
-    title: req.body.title,
-    content: req.body.content
+    label: req.body.label,
+    done: req.body.done
   }).then(function (post) {
     if (post) {
       let toSend = {
@@ -70,8 +70,8 @@ exports.edit = (req, res) => {
 
   Post.findByPk(id).then(data => {
     var updated = data.update({
-      title: req.body.title,
-      content: req.body.content
+      label: req.body.label,
+      done: req.body.done
     });
     let toSend = {
       success: true
@@ -86,8 +86,22 @@ exports.edit = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-  let toSend = {
-    success: true
-  }
-  res.send(toSend);
+
+  const id = req.params.id;
+
+  Post.destroy({
+    where: {
+      id: id
+    }
+  }).then(function (deleted) {
+    if (deleted) {
+      let toSend = {
+        success: true
+      }
+      res.send(toSend);
+    } else {
+      response.status(400).send('Error deleting record');
+    }
+  });
+
 }
